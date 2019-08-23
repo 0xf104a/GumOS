@@ -99,7 +99,6 @@
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": "${workspaceRoot}/.vscode/.browse.c_cpp.db",
                 "path": [
                     "/Users/andre/Documents/Projects/M5OS/include",
                     "/Users/andre/Documents/Projects/M5OS/src",
@@ -193,7 +192,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=40000",
+                "PLATFORMIO=40001",
                 "ARDUINO_M5Stack_Core_ESP32",
                 "ESP32",
                 "ESP_PLATFORM",

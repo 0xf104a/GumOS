@@ -76,8 +76,8 @@ void array_del(array_t *_array,int pos){
         return ;
     }
     int i=pos+1;
-    for(;i<_array->sz;++i){
-        _array[i-1]=_array[i];
+    for(;i<_array->sz;i++){
+        _array->base[i-1]=_array->base[i];
     }
     array_pop(_array);
 }

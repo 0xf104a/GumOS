@@ -1,0 +1,42 @@
+#ifndef IP5306_H
+#define IP5306_H
+
+#define IP5306_ADDR (117) // 0x75
+#define IP5306_REG_SYS_CTL0 (0x00)
+#define IP5306_REG_SYS_CTL1 (0x01)
+#define IP5306_REG_SYS_CTL2 (0x02)
+#define IP5306_REG_READ0 (0x70)
+#define IP5306_REG_READ1 (0x71)
+#define IP5306_REG_READ3 (0x78)
+
+//- REG_CTL0
+#define BOOST_ENABLE_BIT (0x20)
+#define CHARGE_OUT_BIT (0x10)
+#define BOOT_ON_LOAD_BIT (0x04)
+#define BOOST_OUT_BIT (0x02)
+#define BOOST_BUTTON_EN_BIT (0x01)
+
+//- REG_CTL1
+#define BOOST_SET_BIT (0x80)
+#define WLED_SET_BIT (0x40)
+#define SHORT_BOOST_BIT (0x20)
+#define VIN_ENABLE_BIT (0x04)
+
+//- REG_CTL2
+#define SHUTDOWNTIME_MASK (0x0c)
+#define SHUTDOWNTIME_64S (0x0c)
+#define SHUTDOWNTIME_32S (0x04)
+#define SHUTDOWNTIME_16S (0x08)
+#define SHUTDOWNTIME_8S  (0x00)
+
+//- REG_READ0
+#define CHARGE_ENABLE_BIT (0x08)
+
+//- REG_READ1
+#define CHARGE_FULL_BIT (0x08)
+
+//- REG_READ2
+#define LIGHT_LOAD_BIT (0x20)
+#define LOWPOWER_SHUTDOWN_BIT (0x01)
+
+#endif
