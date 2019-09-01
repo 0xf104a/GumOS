@@ -6,7 +6,7 @@ Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a>
 PlatformIO https://platformio.org<br>
 FreeRTOS https://www.freertos.org<br>
 # Notice 
-GUI is not yet ready
+GUI is not yet ready. Also I have no idea why git don't want to add ramfs folder completely and adds only logo.
 
 # Modules
 As I don't know how to implement dynamic loading on esp32 modules are currently hardcoded in <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kmodules.cpp">src/kernel/kmodules.cpp</a> 
