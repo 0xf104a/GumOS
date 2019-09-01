@@ -1,6 +1,7 @@
 # Credits
 Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a>
-
+PlatformIO https://platformio.org
+FreeRTOS https://www.freertos.org
 # Notice 
 GUI is not yet ready
 
