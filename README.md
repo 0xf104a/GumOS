@@ -12,6 +12,8 @@ microramfs initializes from static array placed in ```src/kernel/microramfs/init
 ## Functions
 Any function return ```int``` which is error code(0 means no error).<br>
 Each function accepts filesystem instance(```microramfs *fs```) as first parameter.<br>
+
+
 | Function                                   | Description                        |
 |--------------------------------------------|------------------------------------|
 |create_file(microramfs *fs,char *path)      | Creates file with given path(path  |
