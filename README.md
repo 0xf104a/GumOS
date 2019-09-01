@@ -56,4 +56,7 @@ A lot things to do.<br>
 * Add NTP syncrhonization
 * Add bluetooth connection to smartphone for syncing messages,notifications etc.
 * Make GUI
+* Add sleep mode
+* Add SDCard interface
+* Add updater
 * A lot more...
