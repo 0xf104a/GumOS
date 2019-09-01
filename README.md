@@ -1,3 +1,6 @@
+# GumOS
+Not a real operating system, but a wrapper on FreeRTOS and M5Stack
+
 # Credits
 Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a><br>
 PlatformIO https://platformio.org<br>
