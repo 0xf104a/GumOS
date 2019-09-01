@@ -23,3 +23,6 @@ Each function accepts filesystem instance(```microramfs *fs```) as first paramet
 |rm_file(microramfs *fs,char *path)          | Remove file by given path.         |
 |ls_dir(microramfs *fs, char *path, array_t \**array)| List dir and put all object instances to ```array```|
 |create_dir(microramfs *fs,char *path, char *name)| Create directory with ```name``` in directory ```path```|
+
+## Not yet implemented
+Following functions are not yet implemented(and even not added to headers): ```rm_dir```, ```append_file```
