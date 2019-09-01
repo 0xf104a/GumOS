@@ -11,7 +11,7 @@
 #define TIMER_PRIORITY 1 //priority for task timer
 #define TIMER_INITIAL_TIME 0.0
 #define MICRORAMFS_SIZE 51200
-#define MIN_FREE_HEAP 128 //Kernel will panic if free heap is less
+#define MIN_FREE_HEAP 2048 //Kernel will panic if free heap is less
 /* Modules */
 #define LOAD_GUI      1
 #define LOAD_POWERCTL 1

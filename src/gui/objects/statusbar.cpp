@@ -1,5 +1,7 @@
 #include "statusbar.hpp"
 
+#include "icons/battery/battery.hpp"
+
 #include <gui/gui.h>
 #include <gui/config.h>
 
@@ -18,7 +20,8 @@
 statusbar_t *statusbar;
 
 void draw_bar(void *_statusbar){
-    M5.Lcd.fillRect(0,0,SCREEN_WIDTH,STATUSBAR_HEIGHT,STATUSBAR_COLOR);
+    //M5.Lcd.fillRect(0,0,SCREEN_WIDTH,STATUSBAR_HEIGHT,STATUSBAR_COLOR);
+    /* Draw time */
     M5.Lcd.setTextColor(65535,STATUSBAR_COLOR);
     char *time=(char*)malloc(sizeof(char)*7);
     uint64_t *_rtime=NULL;
@@ -28,6 +31,25 @@ void draw_bar(void *_statusbar){
     int mm=(rtime/60)%60;
     snprintf(time,6*sizeof(char),"%02d:%02d",hh,mm);
     M5.Lcd.drawCentreString(time,160,0,2);
+    free(_rtime);
+    free(time);
+    /* Draw icons */
+    int i=0;
+    uint16_t pos=SCREEN_WIDTH-16;
+    for(;i<statusbar->icons->sz;++i){
+        icon_t *icon=(icon_t *)statusbar->icons->base[i];
+        if(icon->draw(pos)){
+            pos-=16;
+        }
+    }
+
+}
+
+void add_icon(bool (*draw)(uint16_t pos)){
+    icon_t *icon=(icon_t *)malloc(sizeof(icon_t));
+    icon->id=statusbar->icons->sz;
+    icon->draw=draw;
+    array_add(statusbar->icons,icon);
 }
 
 void charger_handler(kevent_t *event){
@@ -43,5 +65,6 @@ GUIObject *init_statusbar(void){
     statusbar->icons=array_create(ARRAY_CAPACITY);
     GUIObject *statusbar=gui_create_object("statusbar",(void *)statusbar, &draw_bar);
     event_handler_add(khandle->event_mgr, &charger_handler);
+    add_icon(&draw_battery_icon);
     return statusbar;
 }
