@@ -1,4 +1,5 @@
 # GumOS
+**WORK IN PROGRESS**<br>
 Not a real operating system, but a wrapper on FreeRTOS and M5Stack.
 
 # Credits
@@ -9,7 +10,7 @@ FreeRTOS https://www.freertos.org<br>
 GUI is not yet ready. Also I have no idea why git don't want to add ramfs folder completely and adds only logo.
 
 # Modules
-As I don't know how to implement dynamic loading on esp32 modules are currently hardcoded in <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kmodules.cpp">src/kernel/kmodules.cpp</a> 
+As I don't know how to implement dynamic loading on esp32 modules are currently hardcoded in <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kmodule.cpp">src/kernel/kmodule.cpp</a> 
 # kconfig.h
 <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kconfig.h">This</a> file stands for kernel configuration.<br>
 
