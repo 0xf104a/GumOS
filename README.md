@@ -5,6 +5,8 @@ FreeRTOS https://www.freertos.org
 # Notice 
 GUI is not yet ready
 
+# Modules
+As I don't know how to implement dynamic loading on esp32 modules are currently hardcoded in <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kmodules.cpp">src/kernel/kmodules.cpp</a> 
 # kconfig.h
 <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kconfig.h">This</a> file stands for kernel configuration.<br>
 
