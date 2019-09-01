@@ -18,8 +18,8 @@ Each function accepts filesystem instance(```microramfs *fs```) as first paramet
 |--------------------------------------------|------------------------------------|
 |create_file(microramfs *fs,char *path)      | Creates file with given path(path  |
 |                                            | should include file name).         |
-|write_file(microramfs *fs,char *path,uint8_t *data, uint64_t sz)| Write data to file(file will be truncated).|
-|read_file(microramfs *fs,char *path, uint8_t \**data, uint64_t *sz)|Read data from file. <br> **IMPORTANT**:```*data``` should be NULL before calling this function.<br>Size of read data will be written to sz|
+|write_file(microramfs *fs,char *path,uint8_t *data, uint64_t sz)| Write ```data``` to file(file will be truncated).```sz``` is size of data|
+|read_file(microramfs *fs,char *path, uint8_t \**data, uint64_t *sz)|Read data from file. <br> **IMPORTANT**:```*data``` should be NULL before calling this function.<br>Size of read data will be written to ```sz```|
 |rm_file(microramfs *fs,char *path)          | Remove file by given path.         |
 |ls_dir(microramfs *fs, char *path, array_t \**array)| List dir and put all object instances to ```array```|
 |create_dir(microramfs *fs,char *path, char *name)| Create directory with ```name``` in directory ```path```|
