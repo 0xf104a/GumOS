@@ -1,5 +1,5 @@
 # GumOS
-Not a real operating system, but a wrapper on FreeRTOS and M5Stack
+Not a real operating system, but a wrapper on FreeRTOS and M5Stack.
 
 # Credits
 Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a><br>
@@ -50,3 +50,10 @@ Each function accepts filesystem instance(```microramfs *fs```) as first paramet
 
 ## Not yet implemented
 Following functions are not yet implemented(and even not added to headers): ```rm_dir```, ```append_file```
+# TO-DO
+A lot things to do.<br>
+* Add network services
+* Add NTP syncrhonization
+* Add bluetooth connection to smartphone for syncing messages,notifications etc.
+* Make GUI
+* A lot more...
