@@ -1,7 +1,7 @@
 # Credits
-Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a>
-PlatformIO https://platformio.org
-FreeRTOS https://www.freertos.org
+Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a><br>
+PlatformIO https://platformio.org<br>
+FreeRTOS https://www.freertos.org<br>
 # Notice 
 GUI is not yet ready
 
