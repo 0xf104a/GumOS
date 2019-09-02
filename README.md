@@ -6,6 +6,7 @@ Not a real operating system, but a wrapper on FreeRTOS and M5Stack.
 Bootlogo by <a href="https://www.flaticon.com/authors/roundicons">RoundIcons</a><br>
 PlatformIO https://platformio.org<br>
 FreeRTOS https://www.freertos.org<br>
+m5stack https://github.com/m5stack/M5Stack<br>
 # Notice 
 GUI is not yet ready. Also I have no idea why git don't want to add ramfs folder completely and adds only logo.
 
