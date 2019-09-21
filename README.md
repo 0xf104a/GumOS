@@ -62,5 +62,5 @@ A lot things to do.<br>
 * Add sleep mode
 * Add SDCard interface
 * Add updater
-* A lot more...
+* A lot more...<br>
 Not to be finished :(
