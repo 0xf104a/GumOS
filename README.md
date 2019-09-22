@@ -63,4 +63,4 @@ A lot things to do.<br>
 * Add SDCard interface
 * Add updater
 * A lot more...<br>
-Not to be finished :(
+
