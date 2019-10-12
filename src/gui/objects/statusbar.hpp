@@ -19,5 +19,6 @@ typedef struct
 } icon_t;
 
 GUIObject *init_statusbar(void);
+void set_appname(char *name);
 
 #endif

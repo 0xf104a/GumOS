@@ -10,6 +10,7 @@
 #include <kernel/modules/gui/module.h>
 #include <kernel/modules/powerctl/module.h>
 #include <kernel/modules/soundctl/module.h>
+#include <kernel/modules/hid/module.h>
 
 void boot_pb(double pb){
     event_create(khandle->event_mgr,"boot_progress_update", &pb);
@@ -42,6 +43,9 @@ void init_modules(void){
 #endif
 #if LOAD_SOUNDCTL
     kmodule_register("soundctl",NULL,&init_soundctl);
+#endif
+#if LOAD_HIDCTL
+    kmodule_register("hidctl",NULL,&init_hid);
 #endif
     boot_pb(100.0);
 }

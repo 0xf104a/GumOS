@@ -114,8 +114,9 @@ void kstart(void){
         kassert(writef("/dev/heap",(uint8_t *)(&heap_free),sizeof(uint32_t))==NO_ERROR);
         uint8_t *panic=NULL;
         kassert(readf("/dev/panic",&panic)==sizeof(uint8_t));
+        //klog(DEBUG,"kernel","%d",heap_free);
         kassert(!panic[0]);
-        //M5.update();
+        M5.update();
         free(panic);
     }
     klog(INFO,"kernel","Kernel loop exited.Will kill all tasks");

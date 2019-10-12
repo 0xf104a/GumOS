@@ -1,6 +1,9 @@
 #include "gui.h"
 #include "config.h"
 #include "objects/statusbar.hpp"
+#include "objects/keyboard.h"
+#include "objects/widgets.h"
+#include "widgets/debug/widget.h"
 
 #include <kernel/kernel.h>
 #include <kernel/ktimer.h>
@@ -52,6 +55,8 @@ void init_gui(void){
     gui=(GUI *)malloc(sizeof(GUI));
     gui->objects=hashtbl_create(HASHTABLE_CAPACITY);
     gui_add_object(init_statusbar());
+    gui_add_object(init_keyboard());
+    gui_add_object(init_widgets());
     //Load images etc.
     klog(INFO,"gui","Initialized gui.");
 }
@@ -60,6 +65,7 @@ void launch_gui(void){
     klog(INFO,"gui","Launching gui.");
     gui->running=true;
     M5.Lcd.clear();
+    add_widget(DebugWidget());
     while (gui->running){
         ksleep(1000.0/GUI_FPS);
         array_t *gui_objects=gui->objects->values;
@@ -69,6 +75,5 @@ void launch_gui(void){
             object->draw(object->param);
         }
     }
-     
 }
 

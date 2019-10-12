@@ -12,6 +12,7 @@
 #include <kernel/microramfs/microramfs.h>
 
 #include <M5Stack.h>
+#include <Free_Fonts.h>
 
 #include <string.h>
 #include <stdlib.h>
@@ -22,6 +23,8 @@ statusbar_t *statusbar;
 void draw_bar(void *_statusbar){
     //M5.Lcd.fillRect(0,0,SCREEN_WIDTH,STATUSBAR_HEIGHT,STATUSBAR_COLOR);
     /* Draw time */
+    M5.Lcd.setTextSize(1);
+    M5.Lcd.setFreeFont(FSB9);
     M5.Lcd.setTextColor(65535,STATUSBAR_COLOR);
     char *time=(char*)malloc(sizeof(char)*7);
     uint64_t *_rtime=NULL;
@@ -48,7 +51,8 @@ void draw_bar(void *_statusbar){
 
 void set_appname(char *name){
     free(statusbar->appname);
-    statusbar->appname=name;
+    statusbar->appname=(char*)malloc(sizeof(char)*(strlen(name)+1));
+    strcpy(statusbar->appname,name);
 }
 
 void add_icon(bool (*draw)(uint16_t pos)){

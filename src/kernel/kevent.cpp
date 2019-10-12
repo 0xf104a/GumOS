@@ -32,6 +32,7 @@ void event_create(EventManager *mgr,char *name, void *param){
         Handler_t *handler=(Handler_t *)mgr->handlers->base[i];
         handler->handle(event);
     }
+    free(event->name);
     free(event);
     kmutex_unlock();
 }
