@@ -4,9 +4,12 @@
 #include <gui/gui.h>
 #include <kernel/types/array.h>
 
+#define INITIAL_APPNAME "Setup"
+
 typedef struct statusbar
 {
     array_t *icons;
+    char *appname;
 } statusbar_t;
 
 typedef struct

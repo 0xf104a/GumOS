@@ -60,6 +60,7 @@ void _kassert(int a,const char *fName, int fLine){
         klog(FATAL,"kernel","Will kill kernel now!!!");
         khandle->kAlive=false;
         kmutex_unlock();
+        ktask_kill(kGetPid());
     }
 }
 

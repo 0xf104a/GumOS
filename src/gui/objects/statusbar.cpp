@@ -31,6 +31,7 @@ void draw_bar(void *_statusbar){
     int mm=(rtime/60)%60;
     snprintf(time,6*sizeof(char),"%02d:%02d",hh,mm);
     M5.Lcd.drawCentreString(time,160,0,2);
+    M5.Lcd.drawCentreString(statusbar->appname,0,0,2);
     free(_rtime);
     free(time);
     /* Draw icons */
@@ -43,6 +44,11 @@ void draw_bar(void *_statusbar){
         }
     }
 
+}
+
+void set_appname(char *name){
+    free(statusbar->appname);
+    statusbar->appname=name;
 }
 
 void add_icon(bool (*draw)(uint16_t pos)){
@@ -63,6 +69,8 @@ GUIObject *init_statusbar(void){
     klog(INFO,"gui","Initializing statusbar.");
     statusbar=(statusbar_t *)malloc(sizeof(statusbar_t));
     statusbar->icons=array_create(ARRAY_CAPACITY);
+    statusbar->appname=(char*)malloc(sizeof(char)*(strlen(INITIAL_APPNAME)+1));
+    strcpy(statusbar->appname,INITIAL_APPNAME);
     GUIObject *statusbar=gui_create_object("statusbar",(void *)statusbar, &draw_bar);
     event_handler_add(khandle->event_mgr, &charger_handler);
     add_icon(&draw_battery_icon);

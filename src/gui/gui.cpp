@@ -23,11 +23,12 @@ uint16_t color16(uint16_t r, uint16_t g, uint16_t b) {
 
 void _gassert(bool a,const char *fname,int line){
     if(!a){
-        klog(FATAL,"gui","Assertation failed at %s:%d. Returning to console mode.",fname,line);
         kSetConsoleMode(true);
+        klog(FATAL,"gui","Assertation failed at %s:%d. Returning to console mode.",fname,line);
         kmutex_lock();
         gui->running=false;
         kmutex_unlock();
+        ktask_kill(kGetPid());
     }
 }
 void gui_add_object(GUIObject *object){
@@ -68,4 +69,6 @@ void launch_gui(void){
             object->draw(object->param);
         }
     }
+     
 }
+
