@@ -18,7 +18,7 @@ As I don't know how to implement dynamic loading on esp32 modules are currently 
 |Parameter               |Description              |
 |------------------------|-------------------------|
 |KERENEL_VERSION         |Just kernel version.     |
-|KLOOP_SLEEP_MS.         |Sleep time for kernel loop( located in ```kstart(void)``` <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kernel.cpp">src/kernel/kernel.cpp</a> )
+|KLOOP_SLEEP_MS          |Sleep time for kernel loop( located in ```kstart(void)``` <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/kernel.cpp">src/kernel/kernel.cpp</a> )
 |ARRAY_CAPACITY          |Default capacity for array capacity(see <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/types/array.h">src/kernel/types/array.h</a>)|
 |HASHTABLE_CAPACITY      |Default capacity for array capacity(see <a href="https://github.com/Andrewerr/GumOS/blob/master/src/kernel/types/array.h">src/kernel/types/hashtable.h</a>)|
 |TASK_STACK_DEPTH        |Max stack depth for FreeRTOS task(see https://www.freertos.org/a00125.html)|
@@ -54,6 +54,7 @@ Each function accepts filesystem instance(```microramfs *fs```) as first paramet
 Following functions are not yet implemented(and even not added to headers): ```rm_dir```, ```append_file```
 # TO-DO
 A lot things to do.<br>
+* Fix issues
 * Add network services
 * Add NTP syncrhonization
 * Add bluetooth connection to smartphone for syncing messages,notifications etc.
@@ -61,4 +62,5 @@ A lot things to do.<br>
 * Add sleep mode
 * Add SDCard interface
 * Add updater
-* A lot more...
+* A lot more...<br>
+
