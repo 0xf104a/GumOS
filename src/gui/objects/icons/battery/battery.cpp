@@ -12,6 +12,7 @@ bool draw_battery_icon(uint16_t pos){
     gassert(readf("/dev/charge",&isCharging)==sizeof(uint8_t));
     M5.Lcd.drawRoundRect(pos-16,0,24,13,3,65535);
     M5.Lcd.fillRoundRect(pos+7,3,4,6,1,65535);
+    double lastLevel=M5.Power.getBatteryLevel();
     if(*isCharging){
         //Draw charge icon
         if(requires_clean){
@@ -25,8 +26,12 @@ bool draw_battery_icon(uint16_t pos){
         if(!requires_clean){
             requires_clean=true;
         }
-
+        
         double level=M5.Power.getBatteryLevel();
+        if(level<lastLevel){
+          M5.Lcd.fillRoundRect(pos-14,2,21,10,1,0);
+          requires_clean=false;
+        }
         M5.Lcd.fillRoundRect(pos-14,2,19*(level/100.0),9,1,65535);
         //Handle battery level
     }

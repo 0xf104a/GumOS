@@ -9,7 +9,7 @@
 #define TASK_STACK_DEPTH 2048
 #define TIMER_SLEEP_TIME 100 //ms 
 #define TIMER_PRIORITY 1 //priority for task timer
-#define TIMER_INITIAL_TIME 1570896401.0+10800.0
+#define TIMER_INITIAL_TIME 1570964398.0+10800.0
 #define MICRORAMFS_SIZE 51200
 #define MIN_FREE_HEAP 2048 //Kernel will panic if free heap is less
 /* Modules */
