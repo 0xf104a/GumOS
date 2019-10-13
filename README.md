@@ -30,6 +30,7 @@ As I don't know how to implement dynamic loading on esp32 modules are currently 
 |LOAD_GUI                |Set to 1 to enable GUI.       |
 |LOAD_POWERCTL           |Set to 1 to enable powerctl.  |
 |LOAD_SOUNDCTL           |Set to 1 to enable soundctl.  |
+|LOAD_HIDCTL             |Set to 1 to enable keyboard.  |
 
 # microramfs
 ## Brief
