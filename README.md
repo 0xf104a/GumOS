@@ -31,7 +31,7 @@ As I don't know how to implement dynamic loading on esp32 modules are currently 
 |LOAD_POWERCTL           |Set to 1 to enable powerctl.  |
 |LOAD_SOUNDCTL           |Set to 1 to enable soundctl.  |
 |LOAD_HIDCTL             |Set to 1 to enable keyboard.  |
-
+|LOAD_CLOJURE            |Set to 1 to load clojure autorun
 # microramfs
 ## Brief
 microramfs is builtin virtual filesystem that store resources and some of sensors states. It has fixed maximum size and in case of exceeding this space you will get error 8 (see https://github.com/Andrewerr/GumOS/blob/master/src/kernel/error.h ).
@@ -53,6 +53,38 @@ Each function accepts filesystem instance(```microramfs *fs```) as first paramet
 
 ## Not yet implemented
 Following functions are not yet implemented(and even not added to headers): ```rm_dir```, ```append_file```
+# Credits
+## TinyClojure
+Files:<br>
+```
+src/clojure/clojure.cpp
+src/clojure/clojure.hpp
+```
+https://github.com/WillDetlor/TinyClojure
+by Duncan Steele
+```
+Copyright (C) 2012 Duncan Steele
+http://slidetocode.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
 # TO-DO
 A lot things to do.<br>
 * Fix issues
