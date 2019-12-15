@@ -4,6 +4,7 @@
 #include "klog.h"
 #include "kevent.h"
 #include "kconfig.h"
+#include "ktask.h"
 
 #include <stdlib.h>
 /*Modules*/
@@ -11,6 +12,7 @@
 #include <kernel/modules/powerctl/module.h>
 #include <kernel/modules/soundctl/module.h>
 #include <kernel/modules/hid/module.h>
+#include <kernel/modules/clojurectl/module.h>
 
 void boot_pb(double pb){
     event_create(khandle->event_mgr,"boot_progress_update", &pb);
@@ -19,7 +21,9 @@ void boot_pb(double pb){
 void _kmodule_register(kmodule_t *module){
     kassert(module!=NULL);
     kassert(module->name!=NULL);
+    kmutex_lock();
     hashtbl_add(khandle->modules,module->name,(void*)module);
+    kmutex_unlock();
     klog(INFO,"kmodule","Registering module:%s",module->name);
     module->init();
 }
@@ -32,10 +36,12 @@ void kmodule_register(char *name,void (*shared_call)(void *param),void (*init)(v
     _kmodule_register(module);
 }
 
-void init_modules(void){
+void init_modules(void* xParam){
     //Register modules here
 #if LOAD_GUI
+    kmutex_lock();
     kmodule_register("gui",NULL,&init_gui_module);
+    kmutex_unlock();
     boot_pb(20.0);
 #endif
 #if LOAD_POWERCTL
@@ -46,6 +52,9 @@ void init_modules(void){
 #endif
 #if LOAD_HIDCTL
     kmodule_register("hidctl",NULL,&init_hid);
+#endif
+#if LOAD_CLOJURE
+    kmodule_register("clojurectl",NULL,&init_clojure);
 #endif
     boot_pb(100.0);
 }

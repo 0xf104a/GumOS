@@ -22,5 +22,6 @@ void kprint(char *s);
 void kprintf(const char* format, ...);
 uint64_t readf(char *path, uint8_t **buf);
 int writef(char *path,uint8_t *buf, size_t sz);
+uint64_t sreadf(char *path, char **_buf);
 
 #endif

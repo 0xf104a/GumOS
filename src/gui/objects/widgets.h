@@ -26,4 +26,5 @@ typedef struct WidgetViewer
 
 GUIObject *init_widgets(void);
 void add_widget(Widget *widget);
+void background(uint32_t __color);
 #endif

@@ -10,6 +10,6 @@ typedef struct{
 }kmodule_t;
 
 void kmodule_register(kmodule_t *module);
-void init_modules(void);
+void init_modules(void *xParam);
 
 #endif

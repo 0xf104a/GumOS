@@ -23,7 +23,7 @@
 
 kernel *khandle;
 
-void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
+/*void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
   int32_t i, j, byteWidth = (w + 7) / 8;
   for (j = 0; j < h; j++) {
     for (i = 0; i < w; i++) {
@@ -32,7 +32,7 @@ void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uin
       }
     }
   }
-}
+}*/
 
 
 void krnl_log(char *_str){
@@ -94,7 +94,7 @@ void kstart(void){
     io_register_stream("kernel",&krnl_log);
     kprintf("Initialized IO\n");
     kprintf("Kernel version: %s\n",KERENEL_VERSION);
-    klog(INFO,"kernel","Initilized outputstream.");
+    klog(INFO,"kernel","Initialized outputstream.");
     khandle->__self=xTaskGetCurrentTaskHandle();
     klog(DEBUG,"kernel","Task handle:%d",khandle->__self);
     khandle->ramfs=initramfs();
@@ -105,7 +105,7 @@ void kstart(void){
     uint8_t panic=0;
     kassert(writef("/dev/panic",&panic,sizeof(uint8_t))==NO_ERROR);
     khandle->event_mgr=eventmgr_init();
-    init_modules();
+    ktask_start("init",&init_modules,NULL,0);
     klog(INFO,"kernel","Entering kernel loop.");
     while(khandle->kAlive){
         ksleep(KLOOP_SLEEP_MS);

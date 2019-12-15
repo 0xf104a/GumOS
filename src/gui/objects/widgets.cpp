@@ -51,4 +51,6 @@ void add_widget(Widget *__widget)
     }
     array_add(widgets->widgets,__widget);
 }
-
+void background(uint32_t __color){
+    M5.Lcd.fillRect(0,16,TFT_HEIGHT,190,__color);
+}

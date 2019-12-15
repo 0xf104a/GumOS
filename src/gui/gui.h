@@ -24,5 +24,6 @@ GUIObject *gui_create_object(char *name, void *param, void (*draw)(void *param))
 void gui_add_object(GUIObject *object);
 uint16_t color16(uint16_t r, uint16_t g, uint16_t b);
 void _gassert(bool a,const char *fname,int line);
+char *timestr(void);
 
 #endif

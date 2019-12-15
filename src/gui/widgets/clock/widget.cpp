@@ -6,23 +6,24 @@
 #include <M5Stack.h>
 #include <Free_Fonts.h>
 #include <stdio.h>
-#define WIDGET_NAME "Debug"
+#define WIDGET_NAME "Clock"
 
 void activate(void){
-    M5.Lcd.fillRect(0,16,TFT_HEIGHT,TFT_WIDTH-35-16,color16(250,250,250));
+    background(color16(0,0,160));
 }
 void on_draw(void){
-    M5.Lcd.setTextColor(color16(0,0,0),color16(250,250,250));
-    M5.Lcd.setFreeFont(FS9);
+    M5.Lcd.setTextColor(color16(255,255,255),color16(0,0,160));
+    M5.Lcd.setTextSize(1);
+    M5.Lcd.setFreeFont(FSS24);
     uint8_t *freeHeap=NULL;
     gassert(readf("/dev/heap",&freeHeap)==sizeof(uint32_t));
     uint32_t heap=*(uint32_t*)freeHeap;
-    char *str=(char*)malloc(sizeof(char)*32);
-    snprintf(str, 31, "Free heap: %d", heap);
-    M5.Lcd.drawCentreString(str,1,16,GFXFF);
+    char *time=timestr();
+//    background(color16(255,255,255));
+    M5.Lcd.drawCentreString(time,1,16,GFXFF);
     gassert(freeHeap!=NULL);
     free(freeHeap);
-    free(str);
+    free(time);
     
 }
 

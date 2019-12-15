@@ -24,7 +24,7 @@ void event_create(EventManager *mgr,char *name, void *param){
     kevent_t *event=(kevent_t*)malloc(sizeof(kevent_t));
     event->data=param;
     event->name=(char *)malloc(sizeof(char)*(strlen(name)+1));
-    klog(INFO,"kevent","Boradcasting event %s",name);
+    klog(INFO,"kevent","Broadcasting event %s",name);
     strcpy(event->name,name);
     kmutex_lock();
     int i=0;

@@ -12,6 +12,8 @@
 #include <kernel/error.h>
 #include <kernel/klog.h>
 #include <kernel/ktask.h>
+#include <kernel/kernel.h>
+#include <kernel/kevent.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -260,7 +262,7 @@ int read_file(microramfs *fs,char *path,uint8_t **data, uint64_t *sz){
     if(obj->is_dir){
         return E_IS_DIR;//Directory
     }
-    assert(*data==NULL);
+    kassert(*data==NULL);
     *data=(uint8_t *)malloc(obj->sz);
     memcpy(*data,obj->fdata,obj->sz);
     *sz=obj->sz;

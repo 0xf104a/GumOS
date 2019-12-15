@@ -71,3 +71,17 @@ int writef(char *path,uint8_t *buf, size_t sz){
     kmutex_unlock();
     return stat;
 }
+
+uint64_t sreadf(char *path, char **__buf){/*reads a string*/
+    uint8_t *buf=NULL;
+    size_t sz=readf(path,&buf);
+    size_t len=(sizeof(uint8_t)*sz)/sizeof(char)+sizeof(char);
+    kassert(*__buf==NULL);
+    char *_buf;
+    _buf=(char*)malloc(sizeof(char)*sz);
+    memcpy(_buf,buf,sz);
+    _buf[len-1]='\0';
+    *__buf=_buf;
+    free(buf);
+    return sz;
+}

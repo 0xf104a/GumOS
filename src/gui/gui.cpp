@@ -3,12 +3,13 @@
 #include "objects/statusbar.hpp"
 #include "objects/keyboard.h"
 #include "objects/widgets.h"
-#include "widgets/debug/widget.h"
+#include "widgets/clock/widget.h"
 
 #include <kernel/kernel.h>
 #include <kernel/ktimer.h>
 #include <kernel/ktask.h>
 #include <kernel/klog.h>
+#include <kernel/io.h>
 
 #include <M5Stack.h>
 
@@ -75,5 +76,17 @@ void launch_gui(void){
             object->draw(object->param);
         }
     }
+}
+
+char *timestr(void){
+    char *time=(char*)malloc(sizeof(char)*7);
+    uint64_t *_rtime=NULL;
+    _gassert(readf("/dev/utime",(uint8_t**)(&_rtime))==sizeof(uint64_t),__FILE__,__LINE__);
+    uint64_t rtime=*_rtime;
+    int hh=(rtime/3600)%24;
+    int mm=(rtime/60)%60;
+    snprintf(time,6*sizeof(char),"%02d:%02d",hh,mm);
+    free(_rtime);
+    return time;
 }
 

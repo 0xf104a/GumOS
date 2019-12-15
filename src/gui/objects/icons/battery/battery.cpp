@@ -7,12 +7,12 @@
 #include <M5Stack.h>
 
 bool requires_clean=true;
+double lastLevel=-1.0;
 bool draw_battery_icon(uint16_t pos){
     uint8_t *isCharging=NULL;
     gassert(readf("/dev/charge",&isCharging)==sizeof(uint8_t));
     M5.Lcd.drawRoundRect(pos-16,0,24,13,3,65535);
     M5.Lcd.fillRoundRect(pos+7,3,4,6,1,65535);
-    double lastLevel=M5.Power.getBatteryLevel();
     if(*isCharging){
         //Draw charge icon
         if(requires_clean){
@@ -34,6 +34,7 @@ bool draw_battery_icon(uint16_t pos){
         }
         M5.Lcd.fillRoundRect(pos-14,2,19*(level/100.0),9,1,65535);
         //Handle battery level
+        lastLevel=level;
     }
     free(isCharging);
     return true;
