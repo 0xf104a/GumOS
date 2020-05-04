@@ -1,6 +1,6 @@
 # GumOS
 **WORK IN PROGRESS**<br>
-Not a real operating system, but a wrapper on FreeRTOS and M5Stack.
+Not a real operating system, but a wrapper on FreeRTOS and M5Stack. Will support lua script for M5Stack(currently lua does not support drawing and working with hardware – writing library implementing all of those is still to be done)
 
 # Notice 
 GUI is not yet ready. Also I have no idea why git don't want to add ramfs folder completely and adds only logo.
@@ -26,7 +26,7 @@ As I don't know how to implement dynamic loading on esp32 modules are currently 
 |LOAD_POWERCTL           |Set to 1 to enable powerctl.  |
 |LOAD_SOUNDCTL           |Set to 1 to enable soundctl.  |
 |LOAD_HIDCTL             |Set to 1 to enable keyboard.  |
-|LOAD_CLOJURE            |Set to 1 to load clojure autorun
+|LOAD_AUTOSTART           |Set to 1 to load lua autorun
 # microramfs
 ## Brief
 microramfs is builtin virtual filesystem that store resources and some of sensors states. It has fixed maximum size and in case of exceeding this space you will get error 8 (see https://github.com/Andrewerr/GumOS/blob/master/src/kernel/error.h ).
