@@ -1,7 +1,7 @@
 #ifndef KCONFIG_H
 #define KCONFIG_H
 
-#define KERENEL_VERSION "1.0a Donetsk"
+#define KERENEL_VERSION "1.06 3ng1n357ar7"
 #define KLOOP_SLEEP_MS 500
 #define ARRAY_CAPACITY 1
 #define HASHTABLE_CAPACITY 200
