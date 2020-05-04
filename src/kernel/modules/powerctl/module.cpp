@@ -1,7 +1,10 @@
 #include "module.h"
+#include "lcd.h"
 #include "ip5306.h"
 
 #include <kernel/kernel.h>
+#include <kernel/kconfig.h>
+#include <gui/icons/battery.h>
 #include <kernel/klog.h>
 #include <kernel/microramfs/microramfs.h>
 #include <kernel/io.h>
@@ -14,9 +17,13 @@
 
 uint8_t charge_state;
 uint8_t _brightness=BRIGHTNESS_DEFAULT;
+
+
 void powerctl_loop(void *p){
+    lcd_begin();
     for(;;){
         ksleep(POWERCTL_SLEEP);
+        screen_timeout();
         uint8_t *power=NULL;
         uint8_t *brightness=NULL;
         kassert(readf("/dev/power",&power)==sizeof(uint8_t));
@@ -25,6 +32,7 @@ void powerctl_loop(void *p){
             klog(INFO,"powerctl","Setting brightness to %d",brightness[0]);
             M5.Lcd.setBrightness(brightness[0]);
             _brightness=brightness[0];
+            _set_software_brightness(_brightness);
         }
         if(!power[0]){
             klog(INFO,"powerctl","Power set to 0. Sytem halt.");
@@ -34,11 +42,17 @@ void powerctl_loop(void *p){
         M5.I2C.readByte(IP5306_ADDR, IP5306_REG_READ3, &charge);
         uint8_t _charge_state=M5.Power.isCharging();
         if(_charge_state!=charge_state){
-           event_create(khandle->event_mgr,"powerctl_trigger_charger",NULL);
+            if(_charge_state){
+                event_create(khandle->event_mgr,"powerctl_charger_plug",NULL);
+            }else{
+                event_create(khandle->event_mgr,"powerctl_charger_unplug",NULL);
+            }
            klog(INFO,"powerctl","Charger state has changed to %d",_charge_state);
            charge_state=_charge_state;
            kassert(writef("/dev/charge",&charge_state,sizeof(uint8_t))==NO_ERROR);
         }
+        //draw_battery_icon(LCD_WIDTH-16);
+        //klog(DEBUG,"powerctl","%lf",level);
         kassert(writef("/dev/battery",&charge,sizeof(uint8_t))==NO_ERROR);
         free(power);
         free(brightness);

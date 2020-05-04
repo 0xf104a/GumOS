@@ -1,0 +1,1 @@
+klog(0,"hello.lua", "Hello from lua!")

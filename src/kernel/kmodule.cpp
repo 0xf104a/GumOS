@@ -8,11 +8,11 @@
 
 #include <stdlib.h>
 /*Modules*/
-#include <kernel/modules/gui/module.h>
 #include <kernel/modules/powerctl/module.h>
 #include <kernel/modules/soundctl/module.h>
 #include <kernel/modules/hid/module.h>
-#include <kernel/modules/clojurectl/module.h>
+#include <kernel/modules/gui/module.h>
+#include <kernel/modules/autostart/module.h>
 
 void boot_pb(double pb){
     event_create(khandle->event_mgr,"boot_progress_update", &pb);
@@ -46,15 +46,19 @@ void init_modules(void* xParam){
 #endif
 #if LOAD_POWERCTL
     kmodule_register("powerctl",NULL,&init_powerctl);
+    boot_pb(40.0);
 #endif
 #if LOAD_SOUNDCTL
     kmodule_register("soundctl",NULL,&init_soundctl);
+    boot_pb(60.0);
 #endif
 #if LOAD_HIDCTL
     kmodule_register("hidctl",NULL,&init_hid);
+    boot_pb(80.0);
 #endif
-#if LOAD_CLOJURE
-    kmodule_register("clojurectl",NULL,&init_clojure);
+#if LOAD_AUTOSTART
+    kmodule_register("autostart",NULL,&do_autostart);
+    boot_pb(90.0);
 #endif
     boot_pb(100.0);
 }

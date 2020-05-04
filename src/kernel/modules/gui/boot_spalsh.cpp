@@ -51,7 +51,7 @@ void draw_splash(void *p){
         ktask_kill(kGetPid());
     }else{
         klog(INFO,"gui","Read logo file. Size is %d.",sz);
-        M5.Lcd.drawJpg(logo_data,sz,96,32);
+       // M5.Lcd.drawJpg(logo_data,sz,96,32);
     }
     
     while(pb!=100.0*BOOT_SYS_FACTOR){
@@ -63,10 +63,10 @@ void draw_splash(void *p){
         ksleep(1000.0/BOOT_FPS);
     }
     klog(INFO,"gui","Boot sequence completed.Initializing gui.");
-    init_gui();
     for(;pb<=100.0;pb+=0.5){
         draw_pb(pb);
         ksleep(1000.0/BOOT_FPS);
     }
-    launch_gui();
+    free(logo_data);
+    gui_run();
 }

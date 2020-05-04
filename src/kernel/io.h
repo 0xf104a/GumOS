@@ -5,10 +5,10 @@
 
 #include <stdint.h>
 
-typedef struct io
+typedef struct _io
 {
     array_t *io_output_streams;
-} io;
+} io_handle;
 
 typedef struct io_out_stream
 {
@@ -23,5 +23,6 @@ void kprintf(const char* format, ...);
 uint64_t readf(char *path, uint8_t **buf);
 int writef(char *path,uint8_t *buf, size_t sz);
 uint64_t sreadf(char *path, char **_buf);
+void reset_lcd(void);
 
 #endif

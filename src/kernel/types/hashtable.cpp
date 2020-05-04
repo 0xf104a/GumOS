@@ -11,9 +11,11 @@
 
 #include "array.h"
 
+
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
+#include <strings.h>
+#include <kernel/kernel.h>
 
 unsigned long __hash(unsigned char *str) //djb2 hash by Dan Bernstein
 {
@@ -28,8 +30,7 @@ unsigned long __hash(unsigned char *str) //djb2 hash by Dan Bernstein
 }
 
 unsigned long _hash(unsigned char *str, size_t mod){ //wrapper
-    unsigned long x= __hash(str)%mod;
-    return x;
+    return __hash(str)%mod;
 }
 
 void _hashtbl_register(hashtable *tbl,_hashtable_node *node){
@@ -38,10 +39,10 @@ void _hashtbl_register(hashtable *tbl,_hashtable_node *node){
 }
 
 _hashtable_node *create_node(char *_key,void *_data){
-    _hashtable_node *node=(_hashtable_node *)malloc(sizeof(_hashtable_node));
+    _hashtable_node* node=(_hashtable_node*)malloc(sizeof(_hashtable_node));
     node->next=NULL;
     node->value=_data;
-    node->key=(char *)malloc(sizeof(char)*strlen(_key));
+    node->key=(char *)malloc(sizeof(char)*strlen(_key)+sizeof(char));
     strcpy(node->key, _key);
     return node;
 }
@@ -77,7 +78,6 @@ void hashtbl_add(hashtable *tbl, char *key, void *data){
 void *hashtbl_get(hashtable *tbl, char *key){
     unsigned long hash = _hash((unsigned char *)key, tbl->capacity);
     if(tbl->base[hash]==NULL){
-
         return NULL;
     }else{
         _hashtable_node *iterator=tbl->base[hash];
@@ -87,7 +87,7 @@ void *hashtbl_get(hashtable *tbl, char *key){
             }
             iterator=iterator->next;
         }
-        assert(iterator&&!strcmp(iterator->key,key));
+        kassert(iterator&&!strcmp(iterator->key,key));
         return iterator->value;
     }
 }
@@ -109,7 +109,7 @@ bool hashtbl_check_key(hashtable *tbl,char *key){
 }
 
 void hastbl_destroy(hashtable *tbl){
-    assert(tbl!=NULL);
+    kassert(tbl!=NULL);
     int i=0;
     _hashtable_node *iterator=NULL;
     _hashtable_node *next=NULL;
@@ -130,23 +130,6 @@ void hastbl_destroy(hashtable *tbl){
     }
 }
 
-void hashtbl_set(hashtable *tbl, char *key,void *value){
-    unsigned long hash = _hash((unsigned char *)key, tbl->capacity);
-    if(tbl->base[hash]==NULL){
-        hashtbl_add(tbl, key, value);
-    }else{
-        _hashtable_node *iterator=tbl->base[hash];
-        while (iterator) {
-            if(!strcmp(iterator->key, key)){
-                break;
-            }
-            iterator=iterator->next;
-        }
-        assert(iterator&&!strcmp(iterator->key,key));
-        iterator->value=value;
-    }
-}
-
 void hashtbl_rm(hashtable *tbl, char *key){
     unsigned long hash = _hash((unsigned char *)key, tbl->capacity);
     if(tbl->base[hash]==NULL){
@@ -161,7 +144,7 @@ void hashtbl_rm(hashtable *tbl, char *key){
             prev=iterator;
             iterator=iterator->next;
         }
-        assert(iterator&&!strcmp(iterator->key,key));
+        kassert(iterator&&!strcmp(iterator->key,key));
         if(prev!=NULL){
             prev->next=iterator->next;
         }

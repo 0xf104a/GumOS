@@ -8,36 +8,45 @@
 #include "error.h"
 #include "microramfs/microramfs.h"
 
+#include <lua/lexec.h>
+
 #include <M5Stack.h>
+#include <Free_Fonts.h>
 #include <Arduino.h>
 
 
-  /*typedef enum {
-    JPEG_DIV_NONE,
-    JPEG_DIV_2,
-    JPEG_DIV_4,
-    JPEG_DIV_8,
-    JPEG_DIV_MAX
-  } jpeg_div_t;*/
+kernel* khandle;
 
 
-kernel *khandle;
+int16_t cursor_x=0;
+int16_t cursor_y=0;
 
-/*void drawBitmap(int16_t x, int16_t y, uint8_t *bitmap, int16_t w, int16_t h, uint16_t color) {
-  int32_t i, j, byteWidth = (w + 7) / 8;
-  for (j = 0; j < h; j++) {
-    for (i = 0; i < w; i++) {
-      if (pgm_read_byte(bitmap + j * byteWidth + i / 8) & (128 >> (i & 7))) {
-        M5.Lcd.drawPixel(x + i, y + j, color);
-      }
+void update_cursor_pos(char* str){
+    int16_t i=0,len=strlen(str);
+    for(;i<len;++i){
+        if(str[i]=='\n'){
+            cursor_y+=8;
+            cursor_x=0;
+        }else{
+            cursor_x+=6;
+        }
+        if(cursor_x>=LCD_WIDTH-6){
+            cursor_x=0;
+            cursor_y+=8;
+        }
     }
-  }
-}*/
-
-
-void krnl_log(char *_str){
+}
+void krnl_log(char* _str){//Debug output strem
     if(khandle->is_console_mode){
+        if(cursor_y>MAX_CURSOR_POS){
+            cursor_x=0;
+            cursor_y=0;
+            reset_lcd();
+        }
+        M5.Lcd.fillRect(cursor_x, cursor_y, 4, 8, 0);
+        update_cursor_pos(_str);
         M5.Lcd.print(_str);
+        M5.Lcd.fillRect(cursor_x, cursor_y, 4, 8, 65535);
     }
     char *str=(char*)malloc(sizeof(char)*(strlen(_str)+1));
     str=strcpy(str,_str);
@@ -55,12 +64,14 @@ void _kassert(int a,const char *fName, int fLine){
         kmutex_lock();
         if(!khandle->is_console_mode){
             khandle->is_console_mode=true;
+            M5.Lcd.setTextColor(65535,0);
+            M5.Lcd.setTextSize(1);
+            M5.Lcd.setFreeFont(TT1);
         }
         klog(FATAL,"kernel","Asseratation failed at %s:%d",fName,fLine);
         klog(FATAL,"kernel","Will kill kernel now!!!");
         khandle->kAlive=false;
         kmutex_unlock();
-        ktask_kill(kGetPid());
     }
 }
 
@@ -107,6 +118,7 @@ void kstart(void){
     khandle->event_mgr=eventmgr_init();
     ktask_start("init",&init_modules,NULL,0);
     klog(INFO,"kernel","Entering kernel loop.");
+    //liblua_exec("klog(0,\"hello.lua\", \"Hello from lua!\")","hi");
     while(khandle->kAlive){
         ksleep(KLOOP_SLEEP_MS);
         uint32_t heap_free=xPortGetFreeHeapSize();
@@ -119,13 +131,17 @@ void kstart(void){
         M5.update();
         free(panic);
     }
-    klog(INFO,"kernel","Kernel loop exited.Will kill all tasks");
+    klog(INFO,"kernel","Kernel loop exited.");
     kill_all();
 }
 
 void kSetConsoleMode(bool state){
     klog(INFO,"kernel","Set console mode to:%d",state);
     kmutex_lock();
+    if(!state){
+        cursor_x=0;
+        cursor_y=0;
+    }
     khandle->is_console_mode=state;
     kmutex_unlock();
 }

@@ -5,6 +5,7 @@
 #include <kernel/kernel.h>
 #include <kernel/klog.h>
 
+
 #include <M5Stack.h>
 
 void init_gui_module(void){
@@ -15,4 +16,5 @@ void init_gui_module(void){
     klog(INFO,"gui","Starting bootsplash");
     event_handler_add(khandle->event_mgr, &boot_progress_handler);
     ktask_start("gui", &draw_splash, NULL,0);
+
 }

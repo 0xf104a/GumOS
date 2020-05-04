@@ -14,6 +14,7 @@ int main(void){
 void loop(){
     klog(FATAL,"__init","kernel panic -- dead kernel");
     klog(FATAL,"__init","Please reboot manually");
+    M5.Lcd.setBrightness(200);
     for(;;){
         M5.update();
     }

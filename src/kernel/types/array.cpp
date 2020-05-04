@@ -9,10 +9,13 @@
 #include "array.h"
 #include "../kernel.h"
 
+
+
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <strings.h>
+#include <assert.h>
 
 array_t *array_create(int capacity){
     array_t *_array=(array_t *)malloc(sizeof(array_t));
@@ -24,10 +27,10 @@ array_t *array_create(int capacity){
 }
 
 void array_add(array_t *_array,void *object){
-    if(_array->sz+1 >= _array->capacity){
-        _array->base=(void**)realloc(_array->base, sizeof(void*)*(_array->capacity+1));
-        _array->capacity++;
-    }
+     if(_array->sz+1 >= _array->capacity){
+         _array->base=(void**)realloc(_array->base, sizeof(void*)*(_array->capacity+1));
+         _array->capacity++;
+     }
     _array->base[_array->sz]=object;
     _array->sz++;
 }
@@ -70,7 +73,7 @@ array_t *array_cpy(array_t *src){
 }
 
 void array_del(array_t *_array,int pos){
-    kassert(pos<_array->sz);
+    assert(pos<_array->sz);
     if(pos==_array->sz-1){
         array_pop(_array);
         return ;
@@ -81,5 +84,3 @@ void array_del(array_t *_array,int pos){
     }
     array_pop(_array);
 }
-
-
