@@ -10,6 +10,13 @@
 
 
 
+char* clone_s(const char* _str){
+    /*
+      Clones constant string
+     */
+    char* str = (char*)malloc(sizeof(char)*strlen(_str));
+    return str;
+}
 char* dtostr(double num){
     char output[64];
     snprintf(output, 64, "%f", num);

@@ -6,6 +6,7 @@
 #include "kevent.h"
 #include "io.h"
 #include "error.h"
+#include "kcall.h"
 #include "microramfs/microramfs.h"
 
 #include <lua/lexec.h>
@@ -92,6 +93,7 @@ microramfs *initramfs(void){
 }
 
 void kstart(void){
+    uint8_t panic=0;
     khandle=(kernel *)malloc(sizeof(kernel));
     khandle->kAlive=true;
     khandle->modules=hashtbl_create(HASHTABLE_CAPACITY);
@@ -113,7 +115,7 @@ void kstart(void){
     ktimer_init(khandle->timer,TIMER_INITIAL_TIME);
     create_file(khandle->ramfs, "/dev/heap");//Memoryload
     create_file(khandle->ramfs, "/dev/panic");
-    uint8_t panic=0;
+    kCallInit();
     kassert(writef("/dev/panic",&panic,sizeof(uint8_t))==NO_ERROR);
     khandle->event_mgr=eventmgr_init();
     ktask_start("init",&init_modules,NULL,0);
